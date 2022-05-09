@@ -27,24 +27,20 @@ class humour_live_demo:
         """
         Processes the input and returns the output
         """
-        text = re.sub(r'http\S+', '', text)
-        text = re.sub(r'[^\w\s]','', text)
-
-        # print("\nInput: ", text)
+        text = re.sub(r'http\S+', '', text) # remove links
+        text = re.sub(r'[^\w\s]','', text) # remove punctuation
 
         input = word_tokenize(text)
         input = [word for word in input if word.isalpha()]
         input = [word for word in input if not word.startswith("http")]
-
-        print("\nInput: ", input)
-        # print("Clean input: ", ' '.join(input))
+        print("Clean input: ", ' '.join(input))
 
         input_numerical = self.tokenizer.texts_to_sequences(input) # Convert to numerical
+        input_numerical = [item for sublist in input_numerical for item in sublist] # Flatten the list
+        input_numerical = np.array([input_numerical]) # Convert to numpy array
+        input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length), padding='post') # Pad the input
 
-        print("\nInput numerical: ", input_numerical)
-        
-        # input_numerical = np.array(input_numerical).reshape(1, len(input_numerical)) # 1 row, len() columns
-        # input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length), padding='post') # Pad the input
+        # print("\nInput numerical: ", input_numerical)
         
         self.input_vec = input_numerical # Set the input vector
 
@@ -83,7 +79,6 @@ while True:
             try: 
                 live_session.model = load_model(live_session.path + file)
                 print("\n______________________________________________________________")
-                # print("\nLoading: " + model_name)
                 print("Model loaded: " + file)
             except Exception as e:
                 print(e)
@@ -112,7 +107,7 @@ while True:
 
             # 4. Process the input
             live_session.process_input(ret)
-            # live_session.run_model()
+            live_session.run_model()
             print("______________________________________________________________")
             print("\n")
 
