@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+stopwords = set(stopwords.words('english'))
 
 from keras.models import load_model
 from keras.preprocessing.sequence import pad_sequences
@@ -31,6 +33,17 @@ class humour_live_demo:
         text = re.sub(r'http\S+', '', text) # remove links
         text = re.sub(r'[^\w\s]','', text) # remove punctuation
 
+        emoji_pattern = re.compile("["
+            u"\U0001F600-\U0001F64F"  # emoticons
+            u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+            u"\U0001F680-\U0001F6FF"  # transport & map symbols
+            u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            "]+", flags=re.UNICODE)
+
+        text = emoji_pattern.sub(r'', text) # remove emoji
+        text = ' '.join([word for word in word_tokenize(text) if word not in stopwords]) # remove stopwords
+        text = text.lower()
+        
         input = word_tokenize(text)
         input = [word for word in input if word.isalpha()]
         input = [word for word in input if not word.startswith("http")]
@@ -39,9 +52,8 @@ class humour_live_demo:
         input_numerical = self.tokenizer.texts_to_sequences(input) # Convert to numerical
         input_numerical = [item for sublist in input_numerical for item in sublist] # Flatten the list
         input_numerical = np.array([input_numerical]) # Convert to numpy array
-        input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length), padding='post') # Pad the input
-
-        # print("\nInput numerical: ", input_numerical)
+        input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length)) #, padding='post') # Pad the input
+        input_numerical = np.array(input_numerical, dtype=np.float32)
         
         self.input_vec = input_numerical # Set the input vector
 
@@ -50,6 +62,7 @@ class humour_live_demo:
         Runs the model and returns the output
         """
         output = self.model.predict(self.input_vec)
+        output = np.round(output)
         print("\nModel predicts: ", int(output))
 
         if int(output) == 0:
@@ -103,7 +116,7 @@ while True:
                 continue
             
             # Save Max Length
-            live_session.max_length = live_session.data_df['max_len'][0]
+            live_session.max_length = int(live_session.data_df['max_len'][0])
 
             # 4. Process the input
             live_session.process_input(ret)
@@ -140,7 +153,7 @@ while True:
                 continue
             
             # Save Max Length
-            live_session.max_length = live_session.data_df['max_len'][0]
+            live_session.max_length = int(live_session.data_df['max_len'][0])
 
             # 4. Process the input
             live_session.process_input(ret)
