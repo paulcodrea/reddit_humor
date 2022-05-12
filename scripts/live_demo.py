@@ -120,6 +120,34 @@ class humour_live_demo:
         else:
             print("The input is predicted as - a joke")
 
+    def legend(self, model_name, dataset_name):
+        """
+        Prints the legend.
+        """
+        final_name = ""
+        # if model contains the word "tf-idf"
+        if "2a" in model_name:
+            final_name = "LSTM trained on word_id embedding"
+        elif "2b" in model_name:
+            final_name = "LSTM trained on tf-idf embedding"
+        elif "2c" in model_name:
+            final_name = "LSTM trained on word2vec embedding"
+        elif "3" in model_name:
+            final_name = "Random Forest trained on word_id embedding"
+        else:
+            final_name = "Model not found"
+        
+        if "1a" in dataset_name:
+            final_name = final_name + " and dataset contains dadjokes, deadjokes (no stopwords and case folding)"
+        elif "1b" in dataset_name:
+            final_name = final_name + " and dataset contains dadjokes, deadjokes (with stopwords and case folding)"
+        elif "2a" in dataset_name:
+            final_name = final_name + " and dataset contains dadjokes, facts (no stopwords and no case folding)"
+        elif "2b" in dataset_name:
+            final_name = final_name + " and dataset contains dadjokes, facts (with stopwords and no case folding)"
+        
+        return final_name 
+
 
 ########################################################################################################################
 # THIS SHOULD BE UPDATED TO USE THE NEW MODEL
