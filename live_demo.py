@@ -9,7 +9,6 @@ import pandas as pd
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-# from sklearn import datasets
 stopwords = set(stopwords.words('english'))
 
 from keras.models import load_model
@@ -64,7 +63,7 @@ class humour_live_demo:
         input_numerical = self.tokenizer.texts_to_sequences(input) # Convert to numerical
         input_numerical = [item for sublist in input_numerical for item in sublist] # Flatten the list
         input_numerical = np.array([input_numerical]) # Convert to numpy array
-        input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length)) #, padding='post') # Pad the input
+        input_numerical = pad_sequences(input_numerical, maxlen=int(self.max_length)) # Pad the input
         input_numerical = np.array(input_numerical, dtype=np.float32)
         
         self.input_vec = input_numerical # Set the input vector
@@ -127,8 +126,6 @@ class humour_live_demo:
 path = 'C:\\Users\\paulc\\OneDrive\\Desktop\\NLU_humour\\reddit_humor\\model\\'
 live_session = humour_live_demo(path)
 
-# print("______________________________________________________________")
-# Strart the model here. Read input from user one line at a time.
 while True:
     ret = input("Enter a sentence: ") # Read input from user
 
@@ -144,7 +141,6 @@ while True:
                 model_name = file[:2] # parse file name to get first 2 characters from file name
                 dataset_name = file[2:-8] # parse file name to get the dataset name
 
-                print("THIS IS NOT THE PLACE.")
                 # 1. Read Model
                 try: 
                     live_session.model = load_model(live_session.path + file)
@@ -184,7 +180,6 @@ while True:
                 dataset_name = file[2:-8] # parse file name to get the dataset name
 
 
-                print("THIS IS THE CORRECT PATH")
                 # 1. Read Model
                 try:
                     live_session.model = load_model(live_session.path + file)
