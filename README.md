@@ -11,7 +11,7 @@ We performed experiments that compare the models trained on datasets that includ
 
 The project contains 4 models: 3 LSTM models with 3 different embedding methods, and a Random Forest Model.
 
-** Our full code, with previous commits, can be seen on GitHub as well, here: ** [https://github.com/paulcodrea/reddit_humor](https://github.com/paulcodrea/reddit_humor).
+**Our full code, with previous commits, can be seen on GitHub as well, here:** [https://github.com/paulcodrea/reddit_humor](https://github.com/paulcodrea/reddit_humor).
 
 ## Contents:
 
@@ -31,14 +31,14 @@ The project includes:
     pip install -r requirements.txt
     ```
     
-- Our scripts and models don’t require any input and are saved as Jupyter Notebook files. Slight adjustments might be needed for leading the data set step if the project is pulled from GitLab (where the data is not stored), not Google Drive (where our data is stored).
+- Our scripts and models don’t require any input and are saved as Jupyter Notebook files. Slight adjustments might be needed for loading the dataset if the project is pulled from GitLab (where the data is not stored), not Google Drive (where our data is stored).
 - In order to run the experiments, simply run the **experiments.ipynb** file in Google Colab and enter an input (we’re sorry if our model doesn’t find your joke is not as funny as you thought it is!)
 
 ## Datasets:
 
 The datasets have been scraped from Reddit. Since the pages scraped are constantly updated by their communities, re-running the scripts to generate new datasets and running the experiments might produce slight variations in the outputs.
 
-The four datasets used for the experiments are as follows:
+*The four datasets used for the experiments are as follows:*
 
 1. The dataset contains Dadjokes, and BadJokes (no stopwords and case folding) - (1a).
 2. The dataset contains Dadjokes, and BadJokes (with stopwords and case folding)- (1b).
@@ -70,21 +70,13 @@ Since our trained models and datasets are large, we stored them in a Drive folde
 For consistency, the following hyperparameters and training splits have been used in all three LSTM models.
 
 | epochs        | 3        |
-|---------------|----------|
 | batch_size    | 70       |
-|---------------|----------|
 | LSTM          | [50, 10] |
-|---------------|----------|
 | Dropout       |      0.5 |
-|---------------|----------|
 | Activation    |  sigmoid |
-|---------------|----------|
 | learning_rate | 0.001    |
-|---------------|----------|
 | train_p       | 0.7      |
-|---------------|----------|
 | test_p        | 0.2      |
-|---------------|----------|
 | val_p         | 0.1      |
 
 ## Results
