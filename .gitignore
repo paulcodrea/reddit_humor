@@ -1,2 +1,9 @@
 
 draft_tf-idf.ipynb
+dataset/test.csv
+__pycache__/config.cpython-39.pyc
+__pycache__/LSTM_conf.cpython-39.pyc
+__pycache__/LSTM_config.cpython-39.pyc
+__pycache__/LSTM_model.cpython-39.pyc
+__pycache__/LSTM_models.cpython-39.pyc
+__pycache__/LSTM_template.cpython-39.pyc

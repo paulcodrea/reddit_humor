@@ -1,5 +1,5 @@
 # Humor Detection: An application of LSTM on jokes.
-Alexandra Pacuraru (10354511) and Paul Codrea (10353564)
+Alexandra Pacuraru and Paul Codrea 
 
 ## Description:
 
