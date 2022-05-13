@@ -69,6 +69,7 @@ Since our trained models and datasets are large, we stored them in a Drive folde
 
 For consistency, the following hyperparameters and training splits have been used in all three LSTM models.
 
+|---------------|----------|
 | epochs        | 3        |
 | batch_size    | 70       |
 | LSTM          | [50, 10] |
